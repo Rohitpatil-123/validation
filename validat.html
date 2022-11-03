@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form validation</title>
+    <style>
+      .main {
+        width: 50%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .formdsign {
+        margin: 30px;
+      }
+      .formdsign input {
+        width: 400px;
+        border: 1px solid blue;
+        height: 25px;
+        font-size: 20px;
+      }
+      .formerror{
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>From</h1>
+
+    <form
+      action="./card.html"
+      name="myform"
+      onsubmit="return validatefrom()"
+      method="post"
+    >
+      <div class="formdsign" id="name">
+        Name:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="fname"/><b><span
+          class="formerror"
+        ></span></b>
+      </div>
+      <div class="formdsign" id="email">
+        Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input
+          type="email"
+          name="femail"
+        /><b><span class="formerror"></span></b>
+      </div>
+      <div class="formdsign" id="phone">
+        Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+          type="phone"
+          name="fphone"
+         
+        /><b><span class="formerror"></span></b>
+      </div>
+      <div class="formdsign" id="passw">
+        Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+          type="password"
+          name="fpassw"
+        
+        /><b><span class="formerror"></span></b>
+      </div>
+      <div class="formdsign" id="cpassw">
+        Confirm password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+          type="password"
+          name="fcpassw"
+        
+        /><b><span class="formerror"></span></b>
+      </div>
+      <input value="submit" type="submit" value="submit"/>
+    </form>
+   
+  </body>
+  <script>
+    function clearerror(){
+        errors=document.getElementsByClassName('formerror');
+        for (let i of errors){
+            i.innerHTML=""
+        }
+    }
+    function seterror(id,error){
+        element=document.getElementById(id);
+        element.getElementsByClassName('formerror')[0].innerHTML=error
+
+    }
+    function validatefrom(){
+        var returnval=true;
+        clearerror();
+        var namee=document.forms['myform']['fname'].value
+        
+        if(namee.length<5){
+            seterror("name"," *length is too short")
+            returnval = false
+        }
+        if(namee.length==0){
+            seterror("name"," *name is required")
+            returnval = false
+        }
+        var emaill=document.forms['myform']['femail'].value
+        if(emaill.length>10){
+            seterror("email","*email is too long")
+            returnval=false
+        }
+        if(emaill.length==0){
+            seterror("email"," *email is required")
+            returnval = false
+        }
+
+        var phn=document.forms['myform']['fphone'].value
+        if(phn.length!=10){
+            seterror("phone",'*enter proper phone number please')
+            returnval=false;
+        }
+        if(phn.length==0){
+            seterror("phone"," *phone no is required")
+            returnval = false
+        }
+
+        var pass=document.forms['myform']['fpassw'].value
+        var cpass =document.forms['myform']['fcpassw'].value
+
+        if (pass!=cpass){
+            seterror("cpassw","password does not match")
+            returnval =false
+        }
+
+
+        return returnval;
+    }
+  </script>
+</html>
